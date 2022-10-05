@@ -99,6 +99,29 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cdead85bdec19c194affaeeb670c0e41fe23de31459efd1c174d049269cf02cc"
 
 [[package]]
+name = "cartoonchat"
+version = "1.3.1"
+dependencies = [
+ "bincode",
+ "chrono",
+ "clap",
+ "crossterm",
+ "dirs-next",
+ "message-io",
+ "rand",
+ "resize",
+ "rgb",
+ "serde",
+ "shellexpand",
+ "shellwords",
+ "toml",
+ "tui",
+ "unicode-width",
+ "v4l",
+ "whoami",
+]
+
+[[package]]
 name = "cassowary"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -732,29 +755,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "unicode-ident",
-]
-
-[[package]]
-name = "termchat"
-version = "1.3.1"
-dependencies = [
- "bincode",
- "chrono",
- "clap",
- "crossterm",
- "dirs-next",
- "message-io",
- "rand",
- "resize",
- "rgb",
- "serde",
- "shellexpand",
- "shellwords",
- "toml",
- "tui",
- "unicode-width",
- "v4l",
- "whoami",
 ]
 
 [[package]]
