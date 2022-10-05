@@ -173,7 +173,7 @@ impl<'a> Application<'a> {
                         }
                         Chunk::Data(data) => {
                             let try_write = || -> Result<()> {
-                                let user_path = std::env::temp_dir().join("termchat").join(&user);
+                                let user_path = std::env::temp_dir().join("cartoonchat").join(&user);
                                 match std::fs::create_dir_all(&user_path) {
                                     Ok(_) => (),
                                     Err(ref err) if err.kind() == ErrorKind::AlreadyExists => (),

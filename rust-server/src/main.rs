@@ -1,5 +1,5 @@
-use termchat::application::{Application};
-use termchat::config::Config;
+use cartoonchat::application::{Application};
+use cartoonchat::config::Config;
 
 use clap::{App, Arg};
 
@@ -19,7 +19,7 @@ fn main() {
                     Ok(_) => Ok(()),
                     Err(_) => Err("The value must have syntax ipv4:port".into()),
                 })
-                .help("Multicast address to found others 'termchat' applications"),
+                .help("Multicast address to found others 'cartoonchat' applications"),
         )
         .arg(
             Arg::with_name("tcp_server_port")
@@ -30,7 +30,7 @@ fn main() {
                     Ok(_) => Ok(()),
                     Err(_) => Err("The value must be in range 0..65535".into()),
                 })
-                .help("Tcp server port used when communicating with other termchat instances"),
+                .help("Tcp server port used when communicating with other cartoonchat instances"),
         )
         .arg(
             Arg::with_name("username")
@@ -53,7 +53,7 @@ fn main() {
                     _ => Err("Theme accepts only dark and light as value".into()),
                 })
                 .takes_value(true)
-                .help("Choose which theme should termchat use, values are dark and light"),
+                .help("Choose which theme should cartoonchat use, values are dark and light"),
         )
         .get_matches();
 
@@ -67,6 +67,6 @@ fn main() {
 
     if let Err(e) = result {
         // app is now dropped we can print to stderr safely
-        eprintln!("termchat exited with error: {}", e);
+        eprintln!("cartoonchat exited with error: {}", e);
     }
 }

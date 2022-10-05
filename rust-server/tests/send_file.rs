@@ -1,16 +1,16 @@
 #![cfg(feature = "ui-test")]
 
-use termchat::application::{Application, Signal};
-use termchat::config::Config;
+use cartoonchat::application::{Application, Signal};
+use cartoonchat::config::Config;
 
 use message_io::node::{NodeHandler};
 
 #[test]
 fn send_file() {
-    let termchat_dir = std::env::temp_dir().join("termchat");
-    let test_path = termchat_dir.join("test");
-    let _ = std::fs::remove_dir_all(&termchat_dir);
-    std::fs::create_dir_all(&termchat_dir).unwrap();
+    let cartoonchat_dir = std::env::temp_dir().join("cartoonchat");
+    let test_path = cartoonchat_dir.join("test");
+    let _ = std::fs::remove_dir_all(&cartoonchat_dir);
+    std::fs::create_dir_all(&cartoonchat_dir).unwrap();
 
     let data = vec![rand::random(); 10usize.pow(6)];
     std::fs::write(&test_path, &data).unwrap();
@@ -19,7 +19,7 @@ fn send_file() {
     let config1: Config = Config { user_name: 1.to_string(), ..Config::default() };
     let config2: Config = Config { user_name: 2.to_string(), ..Config::default() };
     let (mut s1, t1) = test_user(config1);
-    // wait a bit or termchat will creates two-communication channels at the same time
+    // wait a bit or cartoonchat will creates two-communication channels at the same time
     std::thread::sleep(std::time::Duration::from_millis(100));
     let (s2, t2) = test_user(config2);
 
@@ -38,7 +38,7 @@ fn send_file() {
 
     // assert eq
     let send_data =
-        std::fs::read(std::env::temp_dir().join("termchat").join("1").join("test")).unwrap();
+        std::fs::read(std::env::temp_dir().join("cartoonchat").join("1").join("test")).unwrap();
     assert_eq!(data.len(), send_data.len());
     assert_eq!(data, send_data);
 }

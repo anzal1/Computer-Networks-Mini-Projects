@@ -22,7 +22,7 @@ impl TerminalEventCollector {
         let collector_thread_handle = {
             let running = collector_thread_running.clone();
             let timeout = Duration::from_millis(EVENT_SAMPLING_TIMEOUT);
-            thread::Builder::new().name("termchat: terminal event collector".into()).spawn(
+            thread::Builder::new().name("cartoonchat: terminal event collector".into()).spawn(
                 move || {
                     let try_read = || -> Result<()> {
                         if crossterm::event::poll(timeout)? {

@@ -30,7 +30,7 @@ impl Config {
     /// If it does not exist, create it with default config values, and return that
     /// If it fails for any other reason return None
     fn from_config_file() -> Option<Self> {
-        let config_dir_path = dirs_next::config_dir()?.join("termchat");
+        let config_dir_path = dirs_next::config_dir()?.join("cartoonchat");
         if let Err(e) = std::fs::create_dir_all(&config_dir_path) {
             if e.kind() != std::io::ErrorKind::AlreadyExists {
                 return None

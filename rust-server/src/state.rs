@@ -211,19 +211,19 @@ impl State {
 
     pub fn add_system_warn_message(&mut self, content: String) {
         let message_type = MessageType::System(content, SystemMessageType::Warning);
-        let message = ChatMessage::new("Termchat: ".into(), message_type);
+        let message = ChatMessage::new("cartoonchat: ".into(), message_type);
         self.messages.push(message);
     }
 
     pub fn add_system_info_message(&mut self, content: String) {
         let message_type = MessageType::System(content, SystemMessageType::Info);
-        let message = ChatMessage::new("Termchat: ".into(), message_type);
+        let message = ChatMessage::new("cartoonchat: ".into(), message_type);
         self.messages.push(message);
     }
 
     pub fn add_system_error_message(&mut self, content: String) {
         let message_type = MessageType::System(content, SystemMessageType::Error);
-        let message = ChatMessage::new("Termchat: ".into(), message_type);
+        let message = ChatMessage::new("cartoonchat: ".into(), message_type);
         self.messages.push(message);
     }
 
