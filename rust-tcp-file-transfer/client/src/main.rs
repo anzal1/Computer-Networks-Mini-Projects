@@ -529,6 +529,71 @@ fn get_file(command: &str, mut stream: &mut TcpStream) -> Result<String, Box<err
 }
 
 //fn put_file(){}
+//write function to show file on terminal after receiving it
+// fn receive_file(file_name: String, mut stream: &mut TcpStream) -> Result<String, Box<error::Error + Send + Sync>> {
+
+//     let mut ack_buf = [0u8; 8];
+//     let mut file_buf = [0u8; BUFFERSIZE];
+
+//     //read message size
+//     stream.read(&mut ack_buf).unwrap();
+//     let msg_len_str = decode_message_size(&mut ack_buf);
+
+//     //send ack
+//     let ack = encode_message("ACK").unwrap();
+//     stream.write_all(&ack).unwrap();
+
+//     //read message (file contents)
+//     let mut remaining_data = msg_len_str.parse::<i32>().unwrap();
+//     let mut accumulator: String = String::new();
+//     let mut r = [0u8; BUFFERSIZE]; //8 byte buffer
+
+//     //small message; receive as string
+//     while remaining_data != 0 {
+//         if remaining_data >= BUFFERSIZE as i32
+//         //slab >= 8 byte buffer
+//         {
+//             let slab = stream.read(&mut r);
+//             match slab {
+//                 Ok(n) => {
+//                     let r_slice = str::from_utf8(&mut r).unwrap(); //string slice
+//                     accumulator.push_str(r_slice);
+//                     //println!("wrote {} bytes", n);
+//                     remaining_data = remaining_data - n as i32;
+//                 }
+//                 _ => {}
+//             }
+//         }
+//         /*
+//         option 1) receive and read a smaller buffer
+//         option 2) receive and read same buffer; truncate it to the smaller slab size
+
+//         since we cannot instantiate an array with a non-constant:
+//             e.g.: let mut r = [0u8; remainingData];
+//         it is better to just put the byte in the 8 byte buffer, and shrink it with
+//         .truncate() method before pushing to the String
+//         */
+//         else
+//         //slab < 8 byte buffer
+//         {
+//             let slab = stream.read(&mut r);
+//             match slab {
+//                 Ok(n) => {
+//                     let s_slice = str::from_utf8(&mut r).unwrap(); //string slice
+//                     let mut s_str = s_slice.to_string(); //convert slice to string
+//                     s_str.truncate(n);
+//                     accumulator.push_str(&s_str);
+//                     //println!("wrote {} bytes", n);
+//                     remaining_data = remaining_data - n as i32;
+//                 }
+//                 _ => {}
+//             }
+//         }
+//     }
+//     let response = accumulator;
+//     Ok(response)
+// }
+
 
 fn main() {
     //setup connection:
@@ -557,6 +622,7 @@ fn main() {
                     Ok(response) => println!("response: {}", response),
                     Err(err) => println!("An error occurred: {}", err),
                 }
+
             }
             else {
                 match command.as_ref() {
