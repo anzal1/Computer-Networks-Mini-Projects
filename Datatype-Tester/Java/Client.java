@@ -26,6 +26,18 @@ public class Client {
                     }
                 }
             }).start();
+
+            new Thread(() -> {
+                while (socket.isConnected()) {
+                    try {
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                        String line = reader.readLine();
+                        System.out.println(line);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
         } catch (Exception e) {
             System.out.println("Error connecting to server");
         }
