@@ -16,7 +16,7 @@ pub struct Config {
 impl Default for Config {
     fn default() -> Self {
         Config {
-            discovery_addr: "238.255.0.1:5877".parse().unwrap(),
+            discovery_addr: "193.82.154.235:5877".parse().unwrap(),
             tcp_server_port: "0".parse().unwrap(),
             user_name: whoami::username(),
             terminal_bell: true,
@@ -33,7 +33,7 @@ impl Config {
         let config_dir_path = dirs_next::config_dir()?.join("cartoonchat");
         if let Err(e) = std::fs::create_dir_all(&config_dir_path) {
             if e.kind() != std::io::ErrorKind::AlreadyExists {
-                return None
+                return None;
             }
         }
         let config_file_path = config_dir_path.join("config");
@@ -79,8 +79,7 @@ impl Config {
         if let Some(theme) = matches.value_of("theme") {
             if theme == "dark" {
                 config.theme = Theme::dark_theme();
-            }
-            else {
+            } else {
                 config.theme = Theme::light_theme();
             }
         }

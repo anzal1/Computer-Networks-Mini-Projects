@@ -6,7 +6,7 @@ pub struct StopStreamCommand; //unimplemented
 
 impl Command for SendStreamCommand {
     fn name(&self) -> &'static str {
-        "stream"
+        "startstream"
     }
 
     fn parse_params(&self, _params: Vec<String>) -> Result<Box<dyn Action>> {

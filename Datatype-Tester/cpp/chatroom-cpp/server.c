@@ -54,7 +54,7 @@ void checkMessageDataType(char *message)
 	reti = regcomp(&regex, regexString, 0);
 	if (reti)
 	{
-		fprintf(stderr, "Could not compile regex	");
+		fprintf(stderr, "Could not compile regex");
 		exit(1);
 	}
 	reti = regexec(&regex, message, 0, NULL, 0);
@@ -358,14 +358,11 @@ void send_message(char *s, int uid)
 		{
 			if (clients[i]->uid != uid)
 			{
+
 				if (write(clients[i]->sockfd, s, strlen(s)) < 0)
 				{
 					perror("ERROR: write to descriptor failed");
 					break;
-				}
-				else
-				{
-					checkMessageDataType(s);
 				}
 			}
 		}
@@ -415,6 +412,10 @@ void *handle_client(void *arg)
 				send_message(buff_out, cli->uid);
 
 				str_trim_lf(buff_out, strlen(buff_out));
+				// trim message till :
+				char *token = strtok(buff_out, ":");
+				str_trim_lf(token, strlen(token));
+				checkMessageDataType(token);
 				printf("%s -> %s\n", buff_out, cli->name);
 			}
 		}
