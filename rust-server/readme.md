@@ -15,7 +15,7 @@ $ cargo install cartoonchat --all-features
 
 If you have `~/.cargo/bin` in your PATH (or similar in your OS), you will be able to use _cartoonchat_ everywhere in your computer!
 
-Also, you can download the last release for your machine from the [releases](https://github.com/lemunozm/cartoonchat/releases).
+Also, you can download the last release for your machine from the [releases](https://github.com/anzal1).
 
 [cargo]: https://doc.rust-lang.org/cargo/getting-started/installation.html
 

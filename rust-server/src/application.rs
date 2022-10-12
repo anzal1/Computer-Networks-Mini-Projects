@@ -9,7 +9,7 @@ use crate::commands::{CommandManager};
 use crate::message::{NetMessage, Chunk};
 use crate::util::{Error, Result, Reportable};
 use crate::commands::send_file::{SendFileCommand};
-#[cfg(feature = "stream-video")]
+// #[cfg(feature = "stream-video")]
 use crate::commands::send_stream::{SendStreamCommand, StopStreamCommand};
 use crate::config::Config;
 use crate::encoder::{self, Encoder};
@@ -57,7 +57,7 @@ impl<'a> Application<'a> {
         let (_task, receiver) = listener.enqueue();
 
         let commands = CommandManager::default().with(SendFileCommand);
-        #[cfg(feature = "stream-video")]
+        // #[cfg(feature = "stream-video")]
         let commands = commands.with(SendStreamCommand).with(StopStreamCommand);
 
         Ok(Application {
