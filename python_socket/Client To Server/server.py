@@ -6,7 +6,7 @@ def client_program():
     port = 5000
 
     client_socket = socket.socket()  
-    client_socket.connect((host, port))  
+    client_socket.connect((host, port))
 
     message = input(" -> ")  
 
