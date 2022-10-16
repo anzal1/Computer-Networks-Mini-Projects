@@ -1,3 +1,9 @@
 [submodule "Magical Sockets/RemoteMouse-AndroidApp"]
 	path = Magical Sockets/RemoteMouse-AndroidApp
 	url = https://github.com/Thre4dripper/RemoteMouse-AndroidApp
+[submodule "Magical Sockets/GyroMouse-AndroidApp"]
+	path = Magical Sockets/GyroMouse-AndroidApp
+	url = https://github.com/Thre4dripper/GyroMouse-AndroidApp
+[submodule "Magical Sockets/RemoteDesktop-AndroidApp"]
+	path = Magical Sockets/RemoteDesktop-AndroidApp
+	url = https://github.com/Thre4dripper/RemoteDesktop-AndroidApp
