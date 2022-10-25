@@ -6,25 +6,27 @@ public class Client {
 
     public static void main(String[] args) {
         try {
+            //creating socket to connect to server
             socket = new Socket("localhost", 8080);
             System.out.println("Connected to server");
 
+            //new thread for server communication
             new Thread(() -> {
-                    try {
-                        //read file
-                        DataInputStream dis = new DataInputStream(socket.getInputStream());
-                        byte[] buffer = new byte[1];
+                try {
+                    //read file
+                    DataInputStream dis = new DataInputStream(socket.getInputStream());
+                    byte[] buffer = new byte[1];
 
-                        //print file
-                        while (dis.read(buffer) > 0) {
-                            //progress
-                            System.out.print(new String(buffer));
-                        }
-
-                        System.out.println("\n--- End of file ---");
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    //print file
+                    while (dis.read(buffer) > 0) {
+                        //progress
+                        System.out.print(new String(buffer));
                     }
+
+                    System.out.println("\n--- End of file ---");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }).start();
 
