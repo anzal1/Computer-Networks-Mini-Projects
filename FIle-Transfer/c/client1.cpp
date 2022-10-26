@@ -1,5 +1,5 @@
-// Client side C/C++ program to demonstrate Socket
-// programming
+// Client 1
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -53,7 +53,7 @@ int main(int argc, char const* argv[])
 	serv_addr.sin_port = htons(PORT);
 
 	// Convert IPv4 and IPv6 addresses from text to binary
-	// form
+
 	if (inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr)<= 0) {
 		printf("\nInvalid address/ Address not supported \n");
 		return -1;
