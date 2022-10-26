@@ -129,16 +129,16 @@ int main(void)
 
     // main loop
     for(;;) {
-        read_fds = master; // copy master to temp
+        read_fds = master; // copy master to temp for read and write
         write_fds = master;
 
-        // select() to monitor which sockets are ready to read
+        // select() to monitor which sockets are ready to read and which are ready to be written to
         if (select(fd_max+1, &read_fds,&write_fds, NULL, NULL) == -1){
             perror("select");
             exit(4);
         }
 
-        // run through the existing connections looking for data to read
+        // run through the existing connections looking for data to read/client to write to
         for(i = 0; i <= fd_max; i++) {
 
             if (FD_ISSET(i, &read_fds)) { // we got one
@@ -159,8 +159,6 @@ int main(void)
 
                         FD_SET(newfd, &master); // add to master set
 
-                        //fcntl(newfd, F_SETFL, O_NONBLOCK);
-
                         printf("Server: new connection from %s on socket %d\n",
                             inet_ntop(remoteaddr.ss_family, get_in_addr((struct sockaddr*)&remoteaddr), remoteIP, INET6_ADDRSTRLEN),
                             newfd);
@@ -168,23 +166,24 @@ int main(void)
                         int status = fcntl(newfd, F_SETFL, fcntl(newfd, F_GETFL, 0) | O_NONBLOCK);
 
                         if (status == -1){
-                        perror("calling fcntl");
-                        // handle the error.  By the way, I've never seen fcntl fail in this way
+                            printf("Server: error in fcntl()\n");
                         }                                              
                     }
                 } 
                 else {                
                 } // END handle data from client
              }// END got new incoming connection
+
+            // if client is ready to be written to, send file
             if (FD_ISSET(i, &write_fds)) {
 
                 // client ready to read
-                    printf("Server: sending file to client %d\n", i);
-                    send_file(i);
-                    printf("Server: file sent\n");
-                    close(i);
-                                        
-                    FD_CLR(i, &master);
+                printf("Server: sending file to client %d\n", i);
+                send_file(i);
+                printf("Server: file sent\n");
+                close(i);
+                                    
+                FD_CLR(i, &master); // clear the client from master
             }
         } // END looping through file descriptors
     } // END for(;;)

@@ -17,7 +17,7 @@
 void write_file(int sockfd){
     int n;
     FILE *fp;
-    char* filename = (char *)"recv.txt";
+    char* filename = (char *)"recv1.txt";
     char buffer[SIZE] ;
     
     fp = fopen(filename, "w");
