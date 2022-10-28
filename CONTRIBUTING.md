@@ -1,6 +1,12 @@
-Steps to contribute -
-fork this repository
-make necessary changes in the source code
-this includes changes to the src (for the actual library) and docs (for the documentation website) directories.
-Submit a pull request to the main branch of the original (this) repo
-Wait for approval from the maintainers. Meanwhile use the discussion forum to discuss about your changes in that particular commit
+## How to contribute
+- Fork the repository
+- Clone the repository
+- Create a new branch
+- Make changes
+- Commit and push
+- Create a pull request
+- Add a description of the changes you made
+- Add screenshots if necessary
+- Wait for the pull request to be merged
+- Delete the branch
+
