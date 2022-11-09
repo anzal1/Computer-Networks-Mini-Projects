@@ -17,64 +17,20 @@
 using namespace std;
 // Server side
 
-string EncryptRail(string text, int key)
+string originalText(string cipher_text, string key)
 {
-    char rail[key][(text.length())];
-    for (int i = 0; i < key; i++)
-        for (int j = 0; j < text.length(); j++)
-            rail[i][j] = '\n';
-    bool dir_down = false;
-    int row = 0, col = 0;
-    for (int i = 0; i < text.length(); i++)
-    {
-        if (row == 0 || row == key - 1)
-            dir_down = !dir_down;
-        rail[row][col++] = text[i];
-        dir_down ? row++ : row--;
-    }
-    string result;
-    for (int i = 0; i < key; i++)
-        for (int j = 0; j < text.length(); j++)
-            if (rail[i][j] != '\n')
-                result.push_back(rail[i][j]);
-    return result;
-}
+    string orig_text;
 
-string DecryptRail(string cipher, int key)
-{
-    char rail[key][cipher.length()];
-    for (int i = 0; i < key; i++)
-        for (int j = 0; j < cipher.length(); j++)
-            rail[i][j] = '\n';
-    bool dir_down;
-    int row = 0, col = 0;
-    for (int i = 0; i < cipher.length(); i++)
+    for (int i = 0; i < cipher_text.size(); i++)
     {
-        if (row == 0)
-            dir_down = true;
-        if (row == key - 1)
-            dir_down = false;
-        rail[row][col++] = '*';
-        dir_down ? row++ : row--;
+        // converting in range 0-25
+        char x = (cipher_text[i] - key[i] + 26) % 26;
+
+        // convert into alphabets(ASCII)
+        x += 'A';
+        orig_text.push_back(x);
     }
-    int index = 0;
-    for (int i = 0; i < key; i++)
-        for (int j = 0; j < cipher.length(); j++)
-            if (rail[i][j] == '*' && index < cipher.length())
-                rail[i][j] = cipher[index++];
-    string result;
-    row = 0, col = 0;
-    for (int i = 0; i < cipher.length(); i++)
-    {
-        if (row == 0)
-            dir_down = true;
-        if (row == key - 1)
-            dir_down = false;
-        if (rail[row][col] != '*')
-            result.push_back(rail[row][col++]);
-        dir_down ? row++ : row--;
-    }
-    return result;
+    return orig_text;
 }
 
 int main(int argc, char *argv[])
@@ -146,11 +102,23 @@ int main(int argc, char *argv[])
             break;
         }
         cout << "Client's Encrypted Message  : " << msg << endl;
-        cout << "Enter the key: ";
-        int key;
-        cin >> key;
-        cin.ignore();
-        string decrypted = DecryptRail(msg, key);
+        // split the message into the key and the cipher text using the delimiter
+        string key = "";
+        string cipher_text = "";
+        string temp = msg;
+        int i = 0;
+        while (temp[i] != '-')
+        {
+            cipher_text += temp[i];
+            i++;
+        }
+        i = i + 1;
+        while (i < temp.size())
+        {
+            key += temp[i];
+            i++;
+        }
+        string decrypted = originalText(cipher_text, key);
         cout << "Client's Decrypted Message  : " << decrypted << endl;
         cout << ">";
         string data;

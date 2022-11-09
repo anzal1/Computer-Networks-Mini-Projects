@@ -17,65 +17,42 @@
 using namespace std;
 // Client side
 
-string EncryptRail(string text, int key)
+string generateKey(string str, string key)
 {
-    char rail[key][(text.length())];
-    for (int i = 0; i < key; i++)
-        for (int j = 0; j < text.length(); j++)
-            rail[i][j] = '\n';
-    bool dir_down = false;
-    int row = 0, col = 0;
-    for (int i = 0; i < text.length(); i++)
+    int x = str.size();
+
+    for (int i = 0;; i++)
     {
-        if (row == 0 || row == key - 1)
-            dir_down = !dir_down;
-        rail[row][col++] = text[i];
-        dir_down ? row++ : row--;
+        if (x == i)
+            i = 0;
+        if (key.size() == str.size())
+            break;
+        key.push_back(key[i]);
     }
-    string result;
-    for (int i = 0; i < key; i++)
-        for (int j = 0; j < text.length(); j++)
-            if (rail[i][j] != '\n')
-                result.push_back(rail[i][j]);
-    return result;
+    return key;
 }
 
-string DecryptRail(string cipher, int key)
+// This function returns the encrypted text
+// generated with the help of the key
+string cipherText(string str, string key)
 {
-    char rail[key][cipher.length()];
-    for (int i = 0; i < key; i++)
-        for (int j = 0; j < cipher.length(); j++)
-            rail[i][j] = '\n';
-    bool dir_down;
-    int row = 0, col = 0;
-    for (int i = 0; i < cipher.length(); i++)
+    string cipher_text;
+
+    for (int i = 0; i < str.size(); i++)
     {
-        if (row == 0)
-            dir_down = true;
-        if (row == key - 1)
-            dir_down = false;
-        rail[row][col++] = '*';
-        dir_down ? row++ : row--;
+        // converting in range 0-25
+        char x = (str[i] + key[i]) % 26;
+
+        // convert into alphabets(ASCII)
+        x += 'A';
+
+        cipher_text.push_back(x);
     }
-    int index = 0;
-    for (int i = 0; i < key; i++)
-        for (int j = 0; j < cipher.length(); j++)
-            if (rail[i][j] == '*' && index < cipher.length())
-                rail[i][j] = cipher[index++];
-    string result;
-    row = 0, col = 0;
-    for (int i = 0; i < cipher.length(); i++)
-    {
-        if (row == 0)
-            dir_down = true;
-        if (row == key - 1)
-            dir_down = false;
-        if (rail[row][col] != '*')
-            result.push_back(rail[row][col++]);
-        dir_down ? row++ : row--;
-    }
-    return result;
+    return cipher_text;
 }
+
+// This function decrypts the encrypted text
+// and returns the original text
 
 int main(int argc, char *argv[])
 {
@@ -113,14 +90,15 @@ int main(int argc, char *argv[])
     while (1)
     {
         cout << "Enter key: ";
-        int key;
+        string key;
         cin >> key;
         cin.ignore();
         cout << "Enter a message to send: ";
         string data;
         getline(cin, data);
+        key = generateKey(data, key);
         // cin.ignore();
-        data = EncryptRail(data, 3);
+        data = cipherText(data, key) + '-' + key;
         memset(&msg, 0, sizeof(msg)); // clear the buffer
         strcpy(msg, data.c_str());
         if (data == "exit")
