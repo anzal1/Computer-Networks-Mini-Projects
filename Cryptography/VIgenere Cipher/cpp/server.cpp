@@ -101,7 +101,6 @@ int main(int argc, char *argv[])
             cout << "Client has quit the session" << endl;
             break;
         }
-        cout << "Client's Encrypted Message  : " << msg << endl;
         // split the message into the key and the cipher text using the delimiter
         string key = "";
         string cipher_text = "";
@@ -112,6 +111,7 @@ int main(int argc, char *argv[])
             cipher_text += temp[i];
             i++;
         }
+        cout << "Client's Encrypted Message  : " << cipher_text << endl;
         i = i + 1;
         while (i < temp.size())
         {
