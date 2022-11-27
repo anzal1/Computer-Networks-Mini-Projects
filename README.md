@@ -15,6 +15,7 @@ A repository for the team assignments given for socket cross platform programmin
 - C
 - Python
 - Java
+- Kotlin
 - C++
 - JavaScript
 - Rust
