@@ -1,0 +1,16 @@
+{
+  "name": "socket-programming",
+  "version": "1.0.0",
+  "description": "multiple clients socket connection using nodejs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ijlal Ahmad",
+  "license": "ISC",
+  "dependencies": {
+    "readline": "^1.3.0",
+    "socket.io": "^4.5.2",
+    "socket.io-client": "^4.5.2"
+  }
+}
